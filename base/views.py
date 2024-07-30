@@ -3,17 +3,24 @@ from django.http import HttpResponse
 
 # Create your views here
 rooms=[
-    {'id': 1, 'name':'CSGO 2'},
-    {'id':2, 'name':'Valo'},
-    {'id':3, 'name': 'GTA 6'},
-    
+    {'id': 1, 'name':'Python'},
+    {'id':2, 'name':'Philosophy'},
+    {'id':3, 'name': 'Data Science'}, 
 ]
 
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'base/home.html', {'rooms': rooms})
 
 
-def room(request):
-    return render(request, 'room.html')
+def room(request, pk):
+    room=None
+    for i in rooms:
+        if i['id']==int(pk):
+            room=i
+    context={'room' : room}
+    
+    
+    
+    return render(request, 'base/room.html', context)
